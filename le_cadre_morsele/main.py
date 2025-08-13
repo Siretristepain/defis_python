@@ -43,16 +43,16 @@ def filtre_all_pixel(img_origin):
 
     return im
 
-# white_black = filtre_all_pixel(img_origin=img)
-# print(type(white_black))
-# plt.imshow(white_black)
-# plt.show()
-
-# first_band = white_black[0,:,0]
-# print(type(first_band[0]))
-
 def convert_sequence_to_str(sequence):
     return np.array2string(sequence).removeprefix('[').removesuffix(']').replace(' ', '').replace('.', '').replace('\n', '')
+
+def convert_sequence_to_str_bis(sequence):
+    result = []
+
+    for i in sequence:
+        result.append(str(int(i)))
+
+    return ''.join(result)
 
 def split_by_words(sequence: str):
     return sequence.split('0000000')
@@ -61,11 +61,10 @@ def split_by_letter(word: str):
     return word.split('000')
 
 def translate_sequence(sequence):
-
     result = []
 
     # On convertis notre sequence en str
-    sequence = convert_sequence_to_str(sequence)
+    sequence = convert_sequence_to_str_bis(sequence)
 
     # On sépare les mots de notre sequence
     sequence = split_by_words(sequence)
@@ -82,22 +81,53 @@ def translate_sequence(sequence):
             except:
                 pass
             
-
     return ''.join(result)
 
-# convert_one_sequence(first_band)
-# print(convert_sequence_to_str(first_band))
-# print(translate_sequence(first_band))
 
-first_row = img[0,:,:]
-last_column = img[1:,-1,:]
-cadre = np.concatenate([first_row, last_column])
-# print(cadre.shape)
-cadre = cadre.reshape(cadre.shape[0], 1, cadre.shape[1])
-# print(cadre)
+# img_black_white = filtre_all_pixel(img)
 
-sequence = filtre_all_pixel(cadre)
-print(sequence[:,0,0])
-print(sequence.shape)
-print(translate_sequence(sequence[:,0,0]))
-print(convert_sequence_to_str(sequence[:,0,0]))
+# line_1 = img_black_white[0,:,0]
+# line_2 = img_black_white[1,:,0]
+# line_3 = img_black_white[2,:,0]
+# line_4 = img_black_white[3,:,0]
+# line_5 = img_black_white[4,:,0]
+
+# line_minus_5 = np.flip(img_black_white[-5,:,0])
+# line_minus_4 = np.flip(img_black_white[-4,:,0])
+# line_minus_3 = np.flip(img_black_white[-3,:,0])
+# line_minus_2 = np.flip(img_black_white[-2,:,0])
+# line_minus_1 = np.flip(img_black_white[-1,:,0])
+
+# column_1 = np.flip(img_black_white[:,0,0])
+# column_2 = np.flip(img_black_white[:,1,0])
+# column_3 = np.flip(img_black_white[:,2,0])
+# column_4 = np.flip(img_black_white[:,3,0])
+# column_5 = np.flip(img_black_white[:,4,0])
+
+# column_minus_5 = img_black_white[:,-5,0]
+# column_minus_4 = img_black_white[:,-4,0]
+# column_minus_3 = img_black_white[:,-3,0]
+# column_minus_2 = img_black_white[:,-2,0]
+# column_minus_1 = img_black_white[1:,-1,0]
+
+# all_sequences = [line_1, column_minus_1, line_minus_1, column_1, \
+#                  line_2, column_minus_2, line_minus_2, column_2, \
+#                  line_3, column_minus_3, line_minus_3, column_3, \
+#                  line_4, column_minus_4, line_minus_4, column_4, \
+#                  line_5, column_minus_5, line_minus_5, column_5]
+
+# for sequence in all_sequences:
+#     print(translate_sequence(sequence))
+#     print()
+
+# sequence_total = np.concatenate([first_line, second_line])
+
+# print(sequence_total.shape)
+# print(sequence_total)
+# print(translate_sequence(sequence_total))
+
+zone = img[35, 769::4, 1]
+print(zone*255)
+# print(img[35, 769:, 1])
+plt.imshow(zone.reshape(1, zone.shape[0], zone.shape[1]))
+plt.show()

@@ -41,3 +41,50 @@ Le morse est basé sur une unité que je vais appelé 'un point'. Avec ces point
 Entre chaque lettre d'un même mot, il y a 3 points vides.
 
 Entre chaque mot il y a 7 points vides.
+
+msg :
+
+```
+ bravo manifestement vous avez reussi a trouver le message cache qui va vous permettre de vous documenter grace
+
+  wikipedia sur cet animal qu est le morse le morse odobenus rosmarus est s
+
+ ne espece de grands mammiferes marins unique representant actuel de son genre odobenus ainsi que de sa famille cel
+
+  des odobenidae le morse est parfaitement reconnaissable a ses defenses ses mo
+
+ astaches drues et son allure massive les males adultes du pacifique peuvent peser jusqu a deux tonnes et parmi le
+
+ i membres du clade des pinnipedes l espece n est depassee en taille que par l ele
+
+ phant de mer le morse vit principalement dans les eaux peu profondes des plateaux continentaux passant une pa
+
+  importante de son existence sur les blocs de glace ou les icebergs deriv
+
+ tnts de ces platesformes il part a la recherche de sa nourriture de predilection les mollusques bivalves du be
+
+ ethos c est un animal sociable a l esperance de vie d environ 40 ans et cone
+
+ idere comme une espece cle des ecosystemes marins de l arctique le morse occupe une place importante dans la
+
+ lture de nombreux peuples autochtones de l arctique qui le chasserent
+
+ rour sa viande sa graisse sa peau ses defenses et ses os bon si vous etes arrives la c est que vous avez pu tourner
+
+ elusieurs fois dans le cadre et ceci vaut bien un indice car malheureusement t
+
+ e n est pas ce texte qui vous donnera le nom de la personne solution de l enigme pour le trouver il vous faud
+
+  regarder dans l image et plus precisement dans les composantes vertes de
+
+ eertains pixels de la ligne 35 ce sont ceux qui debutent a la colonne 769 et qui vont de 4 en 4 avec un peu
+
+ e code ascii vous devriez trouver la personne en rapport avec l image
+
+
+
+
+ n tout cas bravo d etre arrive jusque la et j espere que ce petit documentaire sur le morse vous aura plu
+
+ n tout cas bravo d etre arrive jusque la et j espere que ce petit documentaire sur le morse vous aura plu
+```
