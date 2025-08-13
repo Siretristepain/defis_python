@@ -20,6 +20,16 @@ On voit que le message est écrit sur 5 lignes.
 
 **Attention** : au niveau des coins, je ne sais pas comment faire. Ex: sur la ligne la plus extérieure : court - court - long - long - court ?
 
+## 1ère erreur : symboles 0 et 1
+
+Ma fonction **filtre_all_pixel** n'était pas raccord avec la façon dont fonctionne le dictionnaire de traduction des lettres en morse dans mon module utile.
+
+En effet, dans mon dictionnaire, les codes morse sont écris avec des 0 et des 1 où 0 resprésente les espaces et 1 représente les points et les traits.
+
+Or, lorsque l'on affiche une matrice avec plt.imshow, les pixels 1 sont blancs et les pixels 0 sont noirs.
+
+Or, dans ma "compréhension", je partais du principe que c'était les pixels noirs qui représentaient les lettres. C'était donc l'inverse.
+
 ### Rappel sur le morse
 
 Le morse est basé sur une unité que je vais appelé 'un point'. Avec ces points, le morse dispose de 2 symbole : 
