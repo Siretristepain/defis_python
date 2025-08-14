@@ -126,8 +126,9 @@ def translate_sequence(sequence):
 # print(sequence_total)
 # print(translate_sequence(sequence_total))
 
-zone = img[35, 769::4, 1]
+zone = img[20:50, 765:800:, 1]
 print(zone*255)
 # print(img[35, 769:, 1])
-plt.imshow(zone.reshape(1, zone.shape[0], zone.shape[1]))
+# plt.imshow(zone.reshape(1, zone.shape[0], zone.shape[1]))
+plt.imshow(zone)
 plt.show()
