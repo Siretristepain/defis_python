@@ -42,7 +42,31 @@ Entre chaque lettre d'un même mot, il y a 3 points vides.
 
 Entre chaque mot il y a 7 points vides.
 
-msg :
+## Résolution étape par étape
+
+J'ouvre l'image avec matplotlib.image --> **img**.
+
+Je créer plusieurs fonctions :
+
+- filtre_all_pixel : fonction qui convertis tous les pixels d'une image en 100 % s'ils n'étaient pas 100% à l'origine et laissent les pixels 100% blancs lorsqu'ils étaient 100% blancs à l'origine.
+
+- convert_sequence_to_str_bis : convertis une sequence np.array en string, en enlevant les crochets au début et à la fin + en suppriment les espaces et les points.
+
+- split_by_words : transforme une str en liste, en séparant les éléments par le pattern '0000000'.
+
+- split_by_letter : transforme une str en liste, en séparant les éléments par le pattern '000'.
+
+- translate_sequence : permet de traduire une séquence np.array composée de 0 et 1 cachant un message en morse en écriture normale. Pour cela, cette méthode fait appel aux méthodes précédentes.
+
+Etapes :
+
+- appliquer la méthode filtre_all_pixel sur **img** pour obtenir **img_black_white**. Cette dernière est donc une image noire et blanche. **Attention** : les pixels blancs sont ceux qui indique un trait plein et les noirs les traits vides (c'est donc contre intuitif). Cette étape permet donc notamment de visualiser le morse dans le cadre de l'image.
+
+- récupérer les bandes qui compose le cadre grâce au slicing : il s'agit des variables line_1, line_2, ...
+
+- appliquer la méthode translate_sequence sur chaque bandes du cadre pour voir le message apparaitre.
+
+Voici le message :
 
 ```
  bravo manifestement vous avez reussi a trouver le message cache qui va vous permettre de vous documenter grace
@@ -88,3 +112,34 @@ msg :
 
  n tout cas bravo d etre arrive jusque la et j espere que ce petit documentaire sur le morse vous aura plu
 ```
+
+On constate que la plupart du texte ne sert à rien mais que l'on a une indication : le nom que l'on cherche est caché dans l'image, plus précisément dans les composantes vertes des pixels allant de 4 en 4 commençant à la ligne 351 et à la colonne 769.
+
+**Attention** : dans le message, la ligne indiquée est 35 et non 351 mais cela est dû à une "erreur" dans mon code. En effet, je parcours tous les pattern d'une sequence et je cherche la lettre correspondante dans le dictionnaire **morse_str** de mon package **utile**.
+
+En effet, voici mon code :
+
+```
+for letter in letters:
+    # hide_letter = [key for key, value in morse_str.items() if value == letter]
+    try:
+        hide_letter = [key for key, value in morse_str.items() if value == letter]
+        result.append(hide_letter[0])
+    except:
+        pass
+```
+
+Donc lorsqu'aucune traduction n'est trouvée, mon code ne fais qu'une simple 'pass' et il est donc impossible de voir lorsqu'il y a une erreur (j'ai donc mis longtemps à comprendre d'où venait mon problème).
+
+Or, j'avais mal encodé le caractère '1' dans le dictionnaire morse_str :
+
+```
+    '1': '101110111011101111',
+```
+
+On voit que j'ai ajouté un 1 en trop à la fin.
+Le bon encodage est :     '1': '10111011101110111'. Je l'ai corrigé par la suite.
+
+## Réponse
+
+Si on convertis en ASCII les composantes vertes des pixels de 4 en 4 à partir des coordonnées 351/769, on trouve : **Alfred Vail**.

@@ -126,9 +126,13 @@ def translate_sequence(sequence):
 # print(sequence_total)
 # print(translate_sequence(sequence_total))
 
-zone = img[20:50, 765:800:, 1]
-print(zone*255)
-# print(img[35, 769:, 1])
-# plt.imshow(zone.reshape(1, zone.shape[0], zone.shape[1]))
-plt.imshow(zone)
-plt.show()
+zone = img[351, 769::4, 1]*255
+print(zone)
+
+result = []
+
+for car in zone:
+    result.append(chr(int(car)))
+
+print(''.join(result))
+# --> Alfred Vail±«£´·­´¾À½ÁÀÍÐÈÕßßç
