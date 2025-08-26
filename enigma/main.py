@@ -26,6 +26,117 @@ def move_rotor(configuration: list):
 
 # print(move_rotor(configuration=['a','b','c','d']))
 
+def crypt_letter_by_rotor(letter_input: str, configuration: list):
+    """Fonction qui permet de simuler le cryptage d'une lettre par un rotor en fonction de sa configuration.
+    La fonction prends une lettre à crypter en entrée et retourne la lettre cryptée en sortie.
+
+    Args:
+        letter_input (str): la lettre à crypter.
+        configuration (list): la configuration du rotor.
+
+    Returns:
+        (str) : la lettre cryptée.
+    """
+
+    # On cherche l'index dans l'alphabet de la lettre en entrée
+    letter_index = alphabet[letter_input.lower()] - 1
+
+    # On retourne l'élément de la configuration du rotor à l'indice correspondant à la lettre d'entrée dans l'alphabet
+    return configuration[letter_index]
+
+def decrypt_letter_by_rotor(letter_output: str, configuration: list):
+    """Fonction qui permet de simuler le décryptage d'une lettre par un rotor en fonction de sa configuration.
+    La fonction prends en entrée la lettre de sortie du rotor et sa configuration et retourne la lettre d'entrée du rotor.
+
+    Args:
+        letter_output (str): la lettre de sortie du rotor.
+        configuration (list): la configuration du rotor.
+
+    Returns:
+        (str) : la lettre d'entrée du rotor.
+    """
+
+    # Liste des éléments de l'alphabet dans l'ordre
+    order = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','_','.']
+
+    # On recherche l'index dans le rotor de la lettre de sortie
+    letter_index_in_rotor = configuration.index(letter_output)
+
+    # On retourne l'élément de l'alphabet à l'indice correspondant à l'indice de la lettre de sortie dans le rotor
+    return order[letter_index_in_rotor]
+
+def resolution_bis(msg_crypted: str):
+    rotor_1 = ['U','S','K','F','E','V','I','Y','W','Z','T','X','A','G','C','Q','N','B','M','O','D','H','L','R','_','P','J','.']
+    rotor_2 = ['X','H','V','N','D','C','R','Z','Q','P','S','B','_','O','K','T','.','L','U','W','G','J','M','E','F','A','I','Y']
+    rotor_3 = ['A','W','Y','J','L','F','O','V','_','T','I','Q','M','Z','E','R','X','U','S','D','K','B','P','N','G','C','.','H']
+    reflecteur = ['.','X','F','_','J','C','Y','I','H','E','L','K','N','M','P','O','Z','T','W','R','V','U','S','B','G','Q','D','A']
+    msg_decrypted = []
+
+    i = 0
+
+    for car in msg_crypted:
+
+        i += 1
+        
+        # ========================
+        # Trajet Droite --> Gauche
+        # ========================
+
+        # Rotor 1
+        letter_input_rotor_1 = car
+        letter_output_rotor_1 = crypt_letter_by_rotor(letter_input=letter_input_rotor_1, configuration=rotor_1)
+
+        # Rotor 2
+        letter_input_rotor_2 = letter_output_rotor_1
+        letter_output_rotor_2 = crypt_letter_by_rotor(letter_input=letter_input_rotor_2, configuration=rotor_2)
+
+        # Rotor 3
+        letter_input_rotor_3 = letter_output_rotor_2
+        letter_output_rotor_3 = crypt_letter_by_rotor(letter_input=letter_input_rotor_3, configuration=rotor_3)
+
+        # ==========
+        # Réflécteur
+        # ==========
+
+        letter_input_reflecteur = letter_output_rotor_3
+        letter_output_reflecteur = crypt_letter_by_rotor(letter_input=letter_input_reflecteur, configuration=reflecteur)
+
+        # ========================
+        # Trajet Gauche --> Droite
+        # ========================
+
+        # Rotor 3
+        letter_output_rotor_3_bis = letter_output_reflecteur
+        letter_input_rotor_3_bis = decrypt_letter_by_rotor(letter_output=letter_output_rotor_3_bis, configuration=rotor_3)
+
+        # Rotor 2
+        letter_output_rotor_2_bis = letter_input_rotor_3_bis
+        letter_input_rotor_2_bis = decrypt_letter_by_rotor(letter_output=letter_output_rotor_2_bis, configuration=rotor_2)
+
+        # Rotor 1
+        letter_output_rotor_1_bis = letter_input_rotor_2_bis
+        letter_input_rotor_1_bis = decrypt_letter_by_rotor(letter_output=letter_output_rotor_1_bis, configuration=rotor_1)
+
+        msg_decrypted.append(letter_input_rotor_1_bis)
+
+        # ====================
+        # Rotations des rotors
+        # ====================
+
+        # On tourne le rotor 1 à chaque itération
+        rotor_1 = move_rotor(configuration=rotor_1)
+
+        # On tourne le rotor 2 toutes les 5 itérations
+        if i % 6 == 0:
+            rotor_2 = move_rotor(configuration=rotor_2)
+
+        # On tourne le rotor 3 toutes les 25 itérations
+        if i % 26 == 0:
+            rotor_3 = move_rotor(configuration=rotor_3)
+
+    return ''.join(msg_decrypted)
+
+
 def resolution(msg_crypted: str):
     order = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','_','.']
     rotor_1 = ['U','S','K','F','E','V','I','Y','W','Z','T','X','A','G','C','Q','N','B','M','O','D','H','L','R','_','P','J','.']
@@ -96,4 +207,7 @@ def resolution(msg_crypted: str):
 
     return ''.join(msg_decrypted)
 
-print(resolution(msg_crypted="_ZP_KMSOXEPOKXWZGBWWDNLAGJYQUI.HUHNGVQKOJNGJ.URCEXJQIPADGMW.VQDVBLNHWV.VPVRWGTTPI_UJACKLSFWBUUQZYTNOLEP.JHYLXFTBNYGKOBKK_UGOT_PXVVSULWWAMKBDWHZNZUNX_UICRW.YLMLGDPARIFKJAQYQL.SHUFWJTTZPLPQLBUDFZQVVRCWXQEWPPSDX"))
+# print(resolution(msg_crypted="_ZP_KMSOXEPOKXWZGBWWDNLAGJYQUI.HUHNGVQKOJNGJ.URCEXJQIPADGMW.VQDVBLNHWV.VPVRWGTTPI_UJACKLSFWBUUQZYTNOLEP.JHYLXFTBNYGKOBKK_UGOT_PXVVSULWWAMKBDWHZNZUNX_UICRW.YLMLGDPARIFKJAQYQL.SHUFWJTTZPLPQLBUDFZQVVRCWXQEWPPSDX"))
+
+
+print(resolution_bis(msg_crypted="_ZP_KMSOXEPOKXWZGBWWDNLAGJYQUI.HUHNGVQKOJNGJ.URCEXJQIPADGMW.VQDVBLNHWV.VPVRWGTTPI_UJACKLSFWBUUQZYTNOLEP.JHYLXFTBNYGKOBKK_UGOT_PXVVSULWWAMKBDWHZNZUNX_UICRW.YLMLGDPARIFKJAQYQL.SHUFWJTTZPLPQLBUDFZQVVRCWXQEWPPSDX"))
