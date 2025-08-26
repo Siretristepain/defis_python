@@ -77,3 +77,17 @@ Ensuite, je bouclerais sur chaque caractères du message crypté en faisant tour
 - rotor 1 : tourne à chaque itérations (à chaque i).
 - rotor 2 : tourne toutes les 5 itérations (c'est à dire à chaque révolution du rotor 1) --> quand i % 5 == 0 .
 - rotor 3 : tourne toutes les 25 itérations (c'est à dire à chaque révolution du rotor 2 ou encore toutes les 5 révolutions du rotor 1). --> quand i % 25 == 0 .
+
+## Résolution
+
+J'ai créer plusieurs méthodes :
+
+- move_rotor : elle permet de décaler d'un cran un rotor en prenant un entrée sa configuration au temps T et en retournant sa configuration au temps T+1.
+
+- crypt_letter_by_rotor : elle permet de simuler le cryptage d'une lettre par un rotor en fonction de sa configuration. C'est cette méthode qui est utilisée pour le trajet de droite à gauche (donc en direction du réflécteur).
+
+- decrypt_letter_by_rotor : elle permet de simuler le décryptage d'une lettre par un rotor en fonction de sa configuration. C'est la méthode qui est utilisée pour le trajet de gauche à droite (donc dans la seconde étape, lorsque l'on retourne vers le rotor 1).
+
+- resolution_bis : la méthode utilisée pour résoudre l'exercice et qui fait appel aux fonction précédentes. Elle prends en entrée le message crypté et retourne le message décrypté. Plusieurs variables sont définies dedans : rotor_1, rotor_2, rotor_3 et reflecteur. Ces 4 variables sont des listes qui définissent les configurations des rotors et du réflecteur. La variable i permet d'identifier à quel itération on est. À chaque itération, la lettre trouvée est ajoutée à la liste vide **result**. Ensuite, on procède à la rotations des rotors. Le rotor 1 tourne à chaque itération, le rotor 2 tourne à chaque révolution du rotor 1 donc toutes les 28 itérations et le rotor 3 tourne à chaque révolution du rotor 3 donc toutes les 784 itérations (28*28). Le réflecteur ne tourne jamais.
+
+Le message caché est : **FELICITATIONS._VOUS_AVEZ_REUSSI_A_DECHIFFRER_CE_MESSAGE._L_INFORMATION_QUE_VOUS_DEVEZ_REMETTRE_POUR_PROUVER_QUE_VOUS_AVEZ_RELEVE_CE_DEFI_EST_LE_MOT_THOUEERIS._ATTENTION_A_NE_PAS_VOUS_TROMPER_DANS_LA_SAISIE...**

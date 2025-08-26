@@ -126,12 +126,12 @@ def resolution_bis(msg_crypted: str):
         # On tourne le rotor 1 à chaque itération
         rotor_1 = move_rotor(configuration=rotor_1)
 
-        # On tourne le rotor 2 toutes les 5 itérations
-        if i % 6 == 0:
+        # On tourne le rotor 2 toutes les 28 itérations (c'est à dire à chaque révolution du rotor 1)
+        if i % 28 == 0:
             rotor_2 = move_rotor(configuration=rotor_2)
 
-        # On tourne le rotor 3 toutes les 25 itérations
-        if i % 26 == 0:
+        # On tourne le rotor 3 toutes les 784 itérations (c'est à dire à chaque révolution du rotor 2) -> On ne le tourne donc jamais puisqu'il y a moins de 784 caractères dans le message crypté
+        if i % 784 == 0:
             rotor_3 = move_rotor(configuration=rotor_3)
 
     return ''.join(msg_decrypted)
@@ -211,3 +211,5 @@ def resolution(msg_crypted: str):
 
 
 print(resolution_bis(msg_crypted="_ZP_KMSOXEPOKXWZGBWWDNLAGJYQUI.HUHNGVQKOJNGJ.URCEXJQIPADGMW.VQDVBLNHWV.VPVRWGTTPI_UJACKLSFWBUUQZYTNOLEP.JHYLXFTBNYGKOBKK_UGOT_PXVVSULWWAMKBDWHZNZUNX_UICRW.YLMLGDPARIFKJAQYQL.SHUFWJTTZPLPQLBUDFZQVVRCWXQEWPPSDX"))
+
+# --> FELICITATIONS._VOUS_AVEZ_REUSSI_A_DECHIFFRER_CE_MESSAGE._L_INFORMATION_QUE_VOUS_DEVEZ_REMETTRE_POUR_PROUVER_QUE_VOUS_AVEZ_RELEVE_CE_DEFI_EST_LE_MOT_THOUEERIS._ATTENTION_A_NE_PAS_VOUS_TROMPER_DANS_LA_SAISIE...
