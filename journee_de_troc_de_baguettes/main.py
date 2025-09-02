@@ -4,7 +4,7 @@ with open("./journee_de_troc_de_baguettes/src/input_for_example.txt", "r") as f:
 print(content)
 
 def find_all_trades(first_student: str, second_student: str):
-    """Fonction qui prends le noms de 2 élèves d'un échange et qui retourne la liste de tous les AUTRES échanges où l'un des 2 élèves apprait.
+    """Fonction qui prends le noms de 2 élèves d'un échange et qui retourne la liste de tous les AUTRES échanges où l'un des 2 élèves apparait.
     Attention : la fonction ne retourne pas l'échange où les 2 éléves apparaissent ensemble en même temps !
 
     Args:
