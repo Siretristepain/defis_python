@@ -4,7 +4,7 @@ import math
 dic = {}
 
 # Lecture du fichier de données
-with open("donnees.txt", 'r') as f:
+with open("./je_vous_surveille/donnees.txt", 'r') as f:
     content = [line.rstrip('\n') for line in f.readlines()]
 
 # On vas remplir le dictionnaire
@@ -58,6 +58,11 @@ for agent in dic:
 
 
 agents_non_surveilles = [x for x in agents if x != -1]
+
+"""
+Liste des agents non surveillés :
+[23, 24, 25, 27, 30, 32, 39, 40, 49, 55, 67, 74, 76, 78, 85, 87, 93, 96, 100, 101, 102, 103, 105, 106, 109, 111, 112, 114, 137, 139, 140, 142, 155, 156, 159, 167, 175, 178, 182, 184, 194, 208, 210, 212, 218, 220, 221, 224, 229, 231, 232, 239, 243, 247, 253]
+"""
 
 print(f"Liste des agents non surveillés :")
 print(agents_non_surveilles)
