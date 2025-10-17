@@ -4,16 +4,16 @@ Dans ce problème, nous étudions le comportement d'une suite de cellules. Il ex
 
 **Les règles d'évolution**:
 
-1 1 1 -> 0
-1 1 0 -> 1
-1 0 1 -> 1
-1 0 0 -> 0
-0 1 1 -> 1
-0 1 0 -> 1
-0 0 1 -> 1
-0 0 0 -> 0
+* 1 1 1 -> 0
+* 1 1 0 -> 1
+* 1 0 1 -> 1
+* 1 0 0 -> 0
+* 0 1 1 -> 1
+* 0 1 0 -> 1
+* 0 0 1 -> 1
+* 0 0 0 -> 0
 
-Ces règles indique pour chaque triplet de cellules comment évolue la cellule du milieu. La première règle énonce : pour un triplet de cellules noires, la cellule du milieu devient blanche au pas de temps suivant. La seconde règle énonce : pour un triplet de cellules noire, noire, blanche, la celulle du milieuu reste noire au pas de temps suivant.
+Ces règles indique pour chaque triplet de cellules comment évolue la cellule du milieu. La première règle énonce : pour un triplet de cellules noires, la cellule du milieu devient blanche au pas de temps suivant. La seconde règle énonce : pour un triplet de cellules noire, noire, blanche, la celulle du milieu reste noire au pas de temps suivant.
 
 Les règles donnent en français :
 
@@ -42,6 +42,14 @@ Je vais inscrire les règles d'évolution dans un dictionnaire.
 
 Je vais ensuite créer une fonction qui prendra un triplet de cellule en entrée. En sortie, elle donnera la nouvelle valeur de la cellule via le dictionnaire d'évolution.
 
+Ensuite je vais créer une fonction qui simule 1 pas de temps pour la séquence complète. Concrètement, elle prendra une séquence au temps T et elle retournera la séquence au temps T+1.
+C'est cette fonction qui sera appelée dans les 178 pas de temps requis dans l'exercice.
+Cette fonction fera appelle à la fonction précédent qui donne l'évolution d'une cellule.
+
+Pour le reste, je n'aurais qu'à convertir le nombre donné en entrée représentant la séqence au début en binaire, puis travailler avec, puis la convertir en entier à la fin.
+
 ### Step by step
 
 Lorsque je convertis 25794542787624960 en binaire, j'obtiens un nombre binaire de 55 digits. Or je dois avoir 100 cellules. J'en déduis que je dois rajouter 45 fois "0" devant.
+
+Pour reconvertir le binaire final après les 178 pas de temps en entier décimal, il faut rajouter '0b' devant la séquence binaire.
