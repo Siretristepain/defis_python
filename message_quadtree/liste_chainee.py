@@ -132,6 +132,30 @@ class ListeChainee():
 
         return True
 
+    def add_at_end(self, maillon):
+        """
+        Méthode pour ajouter un nouveau maillon à la fin de la liste chaînée.
+
+        Args:
+            - maillon (class Maillon()) : l'objet Maillon à ajouter à la fin de la liste.
+
+        Returns:
+            - (bool) : True.
+
+        Complexité : O(n) -> Pour ajouter un maillon à la fin d'une liste de n éléments, on doit récupérer le dernier élément et de le faire
+        pointer sur le nouveau maillon. Du coup, on parcours implicitement les n éléments via la méthode get_last_maillon().
+        """
+
+        # Si la liste est initialement vide, on se contente d'ajouter le nouveau maillon comme noeud de tête
+        if self.is_empty():
+            self.tete = maillon
+            return True
+
+        # Si la liste n'est initialement pas vide, on récupère le dernier noeud de la liste et on le fait pointer vers le nouveau maillon ajouté.
+        last_maillon = self.get_last_maillon()
+        last_maillon.suiv = maillon
+
+        return True
 
 L = ListeChainee()
 M1, M2 = Maillon(), Maillon()
@@ -150,6 +174,11 @@ M4.val = 4
 L2.add_at_begin(M4)
 print(L2.tete.val)
 print(L2.get_size())
+M5 = Maillon()
+M5.val = 5
+L2.add_at_end(M5)
+print(L2.get_size())
+print(L2.get_last_maillon().val)
 
 print('-'*25)
 print(L.is_empty())
@@ -161,3 +190,8 @@ M3.val = 3
 print(L.add_at_begin(M3))
 print(L.tete.val)
 print(L.get_size())
+M6 = Maillon()
+M6.val = 6
+L.add_at_end(M6)
+print(L.get_size())
+print(L.get_last_maillon().val)
