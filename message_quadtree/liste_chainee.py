@@ -106,6 +106,33 @@ class ListeChainee():
 
         return maillon
 
+    def add_at_begin(self, maillon):
+        """
+        Méthode pour ajouter un nouveau maillon au début de la liste chaînée (le noeud ajouté devient le nouveau noeud de tête de la chaîne).
+
+        Args:
+            - maillon (class Maillon()) : l'objet Maillon à ajouter au début de la liste.
+
+        Returns:
+            - (bool) : True.
+
+        Complexité : O(1) -> Pour ajouter un maillon au début d'une liste de n élément, on a juste a ajouter un élément au début et le faire pointer
+        sur l'ancien premier. Donc pas la peine d'itérer sur les n éléments.
+        """
+
+        # Si la liste est initialement vide, on se contente d'ajouter le nouveau maillon comme noeud de tête
+        if self.is_empty():
+            self.tete = maillon
+            return True
+
+        # Si la liste n'est pas initialement vide, il faut en plus faire pointer le pointeur du nouveau noeud de tête vers l'ancien noeud de tête (qui est décalé à l'index 1).
+        first_maillon = self.get_maillon_index(0)
+        self.tete = maillon
+        maillon.suiv = first_maillon
+
+        return True
+
+
 L = ListeChainee()
 M1, M2 = Maillon(), Maillon()
 M1.val = 1
@@ -117,9 +144,20 @@ L2 = ListeChainee()
 print(L2.is_empty())
 print(L2.get_size())
 print(L2.get_last_maillon())
-print(L2.get_maillon_index(1))
+print(L2.get_maillon_index(0))
+M4 = Maillon()
+M4.val = 4
+L2.add_at_begin(M4)
+print(L2.tete.val)
+print(L2.get_size())
+
 print('-'*25)
 print(L.is_empty())
 print(L.get_size())
 print(L.get_last_maillon().val)
 print(L.get_maillon_index(1).val)
+M3 = Maillon()
+M3.val = 3
+print(L.add_at_begin(M3))
+print(L.tete.val)
+print(L.get_size())
