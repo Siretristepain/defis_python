@@ -191,6 +191,7 @@ class ListeChainee():
 
         Retuns:
             - deleted_tete (class Maillon) : le maillon supprimé (= le permier maillon de la liste avant suppression).
+                                             Cas particulier où la méthode retourne True si la liste était vide au moment de l'appel à la méthode.
 
         Compléxité : O(1) -> On récupère juste le premier maillon de la liste et on supprime sa référence (suiv) et le self.tete de la liste.
                      Pas la peine de pacourir les n maillons de la liste.
@@ -206,17 +207,45 @@ class ListeChainee():
 
         return deleted_tete
 
-L = ListeChainee()
-# M1, M2 = Maillon(), Maillon()
-# M1.val = 1
-# M2.val = 2
-# M1.suiv = M2
-# L.tete = M1
+    def delete_end(self):
+        """
+        Méthode pour supprimer le dernier maillon de la liste chaînée.
 
-M1 = Maillon()
+        Returns:
+            - deleted_maillon (class Maillon) : le maillon supprimé. Cas particulier où la méthode retourne True si la liste était vide au moment de l'appel à la méthode.
+
+        Compléxité : O(n) -> Car appel à la méthode get_last_maillon() qui parcours les n maillons de la liste chaînée.
+        """
+
+        # Si la liste est vide, on ne fait rien.
+        if self.is_empty():
+            return True
+
+        size = self.get_size()
+
+        # Si la liste n'a qu'un seul maillon (= la tête), on se contente de supprimer la référence self.tete
+        if size == 1:
+            deleted_maillon = self.tete
+            self.tete = None
+            return deleted_maillon
+
+        # Si la liste à plus d'un maillon, on récupère le dernier (pour pouvoir le retourner), et on récupère l'avant dernier pour suppimer sa référence (suiv) vers le dernier.
+        deleted_maillon = self.get_last_maillon()
+        previous_last_maillon = self.get_maillon_index(size-2)
+        previous_last_maillon.suiv = None
+
+        return deleted_maillon
+
+L = ListeChainee()
+M1, M2, M3 = Maillon(), Maillon(), Maillon()
 M1.val = 1
+M2.val = 2
+M3.val = 3
+M1.suiv = M2
+M2.suiv = M3
 L.tete = M1
 
-print(L.delete_start().val)
-print(L.is_empty())
-
+print(L.get_size()) # --> 3
+print(L.delete_end()) # --> suppr M3
+print(L.get_size()) # --> 2
+print(L.get_last_maillon().val) # --> 2
