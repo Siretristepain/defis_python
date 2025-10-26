@@ -259,6 +259,38 @@ class ListeChainee():
 
         return deleted_maillon
 
+    def show(self):
+        """
+        Méthode qui permet d'avoir un petit rendu visuel des valeurs des maillons de la liste chaînée.
+
+        Returns:
+            - (str) : la représentation de la liste chaînée sous forme str.
+
+        Compléxité : O(n**2) -> Car on boucle n fois sur les n maillons.
+
+        Example:
+            L = ListeChainee()
+            M1, M2, M3 = Maillon(), Maillon(), Maillon()
+            M1.val = 1
+            M2.val = 2
+            M3.val = 3
+            M1.suiv = M2
+            M2.suiv = M3
+            L.tete = M1
+            print(L.show())
+
+            >>> 1 -> 2 -> 3
+        """
+
+        size = self.get_size()
+        all_values = []
+
+        for i in range(size):
+            maillon = self.get_maillon_index(i)
+            all_values.append(str(maillon.val))
+
+        return ' -> '.join(all_values)
+
 L = ListeChainee()
 M1, M2, M3 = Maillon(), Maillon(), Maillon()
 M1.val = 1
@@ -268,7 +300,9 @@ M1.suiv = M2
 M2.suiv = M3
 L.tete = M1
 
-print(L.get_size())
-print(L.delete_after_index(1))
-print(L.get_size()) # --> 2
-print(L.get_last_maillon().val) # --> 2
+print(L.show())
+
+# print(L.get_size())
+# print(L.delete_after_index(1))
+# print(L.get_size()) # --> 2
+# print(L.get_last_maillon().val) # --> 2
