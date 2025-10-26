@@ -236,6 +236,29 @@ class ListeChainee():
 
         return deleted_maillon
 
+    def delete_after_index(self, index):
+        """
+        Méthode qui permet de supprimer le maillon d'indice index+1 dans la liste chaînée.
+
+        Args:
+            - index (int) : l'index du maillon qui précède celui que l'on veut supprimer.
+
+        Returns:
+            - deleted_maillon (class Maillon) : le maillon supprimé.
+
+        Compléxité : O(n) -> Car appel à la méthode get_maillon_index() qui doit potentiellement parcourir les n maillons de la liste chaînée.
+        """
+
+        # On récupère le maillon qui précède celui a supprimer, on en déduit le maillon à supprimer et le maillon suivant.
+        previous_maillon = self.get_maillon_index(index)
+        deleted_maillon = previous_maillon.suiv
+        next_maillon = deleted_maillon.suiv
+
+        # Le maillon qui précède celui a supprimer pointe maintenant vers le maillon qui suivait celui qu'on a supprimé.
+        previous_maillon.suiv = next_maillon
+
+        return deleted_maillon
+
 L = ListeChainee()
 M1, M2, M3 = Maillon(), Maillon(), Maillon()
 M1.val = 1
@@ -245,7 +268,7 @@ M1.suiv = M2
 M2.suiv = M3
 L.tete = M1
 
-print(L.get_size()) # --> 3
-print(L.delete_end()) # --> suppr M3
+print(L.get_size())
+print(L.delete_after_index(1))
 print(L.get_size()) # --> 2
 print(L.get_last_maillon().val) # --> 2
