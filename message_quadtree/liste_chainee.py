@@ -157,6 +157,34 @@ class ListeChainee():
 
         return True
 
+    def add_after_index(self, index, maillon):
+        """
+        Méthode qui permet d'insérer un nouveau maillon 'maillon' après le maillon d'indice 'index' dans la liste chaînée.
+
+        Args:
+            - index (int) : index du maillon après lequel on souhaite ajouter le nouveau maillon.
+            - maillon (class Maillon) : le maillon à ajouter.
+
+        Returns:
+            - (bool) : True.
+
+        Compléxité : O(n) -> Implicitement par l'appel à get_maillon_index().
+                     Il serait possible d'implémenter une nouvelle méthode comme add_after_maillon(self, M1, M2) pour insérer
+                     un maillon M2 après le maillon M1 et on pourrait faire ça en compléxité O(1) mais ça implique d'avoir
+                     déjà les objets M1 ET M2. Donc la compléxité O(n) a de forte chance de se retrouver dans le code avant l'appel
+                     de la méthode pour retrouver M1 et M2.
+        """
+
+        # On récupère le maillon d'indice 'index' (M(i)) et on récupère le maillon vers lequel il pointe (M(i+1)).
+        maillon_before = self.get_maillon_index(index)
+        next_maillon = maillon_before.suiv
+
+        # Ajout du nouveau maillon (Mnew) : On fait pointer M(i) vers Mnew et Mnew vers M(i+1)
+        maillon_before.suiv = maillon
+        maillon.suiv = next_maillon
+
+        return True
+
 L = ListeChainee()
 M1, M2 = Maillon(), Maillon()
 M1.val = 1
@@ -164,34 +192,11 @@ M2.val = 2
 M1.suiv = M2
 L.tete = M1
 
-L2 = ListeChainee()
-print(L2.is_empty())
-print(L2.get_size())
-print(L2.get_last_maillon())
-print(L2.get_maillon_index(0))
-M4 = Maillon()
-M4.val = 4
-L2.add_at_begin(M4)
-print(L2.tete.val)
-print(L2.get_size())
-M5 = Maillon()
-M5.val = 5
-L2.add_at_end(M5)
-print(L2.get_size())
-print(L2.get_last_maillon().val)
 
-print('-'*25)
-print(L.is_empty())
+M3 = Maillon()
+M3.val = 3
+
+L.add_after_index(0, M3)
 print(L.get_size())
 print(L.get_last_maillon().val)
 print(L.get_maillon_index(1).val)
-M3 = Maillon()
-M3.val = 3
-print(L.add_at_begin(M3))
-print(L.tete.val)
-print(L.get_size())
-M6 = Maillon()
-M6.val = 6
-L.add_at_end(M6)
-print(L.get_size())
-print(L.get_last_maillon().val)
