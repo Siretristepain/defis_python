@@ -185,18 +185,38 @@ class ListeChainee():
 
         return True
 
+    def delete_start(self):
+        """
+        Méthode permettant de supprimer le permier maillon de la liste chaînée.
+
+        Retuns:
+            - deleted_tete (class Maillon) : le maillon supprimé (= le permier maillon de la liste avant suppression).
+
+        Compléxité : O(1) -> On récupère juste le premier maillon de la liste et on supprime sa référence (suiv) et le self.tete de la liste.
+                     Pas la peine de pacourir les n maillons de la liste.
+        """
+
+        # Si la liste est vide on ne fait rien.
+        if self.is_empty():
+            return True
+
+        # Si la liste a au moins un maillon (donc au moins une tête), on la récupère pour pouvoir la retourner en sortie de la méthode et on change la valeur de la tête de la liste.
+        deleted_tete = self.tete
+        self.tete = self.tete.suiv
+
+        return deleted_tete
+
 L = ListeChainee()
-M1, M2 = Maillon(), Maillon()
+# M1, M2 = Maillon(), Maillon()
+# M1.val = 1
+# M2.val = 2
+# M1.suiv = M2
+# L.tete = M1
+
+M1 = Maillon()
 M1.val = 1
-M2.val = 2
-M1.suiv = M2
 L.tete = M1
 
+print(L.delete_start().val)
+print(L.is_empty())
 
-M3 = Maillon()
-M3.val = 3
-
-L.add_after_index(0, M3)
-print(L.get_size())
-print(L.get_last_maillon().val)
-print(L.get_maillon_index(1).val)
