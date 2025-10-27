@@ -290,6 +290,38 @@ class ListeChainee():
             all_values.append(str(maillon.val))
 
         return ' -> '.join(all_values)
+    
+    def get_index(self, M):
+        """
+        Méthode qui permet de retourner l'index sur maillon passé en argument dans la ListeChainee.
+
+        Args:
+            - M (class Maillon) : le maillon dont on souhaite connaitre l'index dans la liste.
+
+        Returns:
+            - index (int) : l'index du maillon.
+        """
+
+        maillon = self.tete
+        index = 0
+
+        while maillon != M:
+            maillon = maillon.suiv
+            index += 1
+
+        return index
+    
+    def add_after(self, M1, M2):
+        next_maillon = M1.suiv
+        M1.suiv = M2
+        M2.suiv = next_maillon
+
+    def add_before(self, M1, M2):
+        M1_index = self.get_index(M1)
+        # ??? Même avec un M1_index = 0, on a pas d'erreur en appelant get_maillon_index alors que l'argument sera -1 ???
+        previous_M1 = self.get_maillon_index(M1_index-1)
+        previous_M1.suiv = M2
+        M2.suiv = M1
 
 L = ListeChainee()
 M1, M2, M3 = Maillon(), Maillon(), Maillon()
@@ -301,7 +333,10 @@ M2.suiv = M3
 L.tete = M1
 
 print(L.show())
-
+M4 = Maillon()
+M4.val = 4
+L.add_before(M1, M4)
+print(L.show())
 # print(L.get_size())
 # print(L.delete_after_index(1))
 # print(L.get_size()) # --> 2
