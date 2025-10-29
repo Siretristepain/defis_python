@@ -93,7 +93,7 @@ class ListeChainee():
 
         # On s'assure que la valeur de i passée en argument de la méthode ne soit pas hors de la taille de la liste chaînée.
         if i < 0 or i >= size:
-            return ValueError(f"La valeur d'index {i} passée en argument de la méthode get_maillon_index() n'est pas correcte pour la chaîne {self}.")
+            raise ValueError(f"La valeur d'index {i} passée en argument de la méthode get_maillon_index() n'est pas correcte pour la chaîne {self}.")
         
         # On initialise un compteur 'index' à 0 et le maillon de tête comme premier maillon
         index = 0
@@ -318,7 +318,6 @@ class ListeChainee():
 
     def add_before(self, M1, M2):
         M1_index = self.get_index(M1)
-        # ??? Même avec un M1_index = 0, on a pas d'erreur en appelant get_maillon_index alors que l'argument sera -1 ???
         previous_M1 = self.get_maillon_index(M1_index-1)
         previous_M1.suiv = M2
         M2.suiv = M1
@@ -335,6 +334,7 @@ L.tete = M1
 print(L.show())
 M4 = Maillon()
 M4.val = 4
+print(L.get_index(M1))
 L.add_before(M1, M4)
 print(L.show())
 # print(L.get_size())
