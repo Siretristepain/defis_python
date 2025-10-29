@@ -18,28 +18,41 @@ class Node():
         return self.left == None and self.right == None
 
 class BinaryTree():
-    def __init__(self):
-        self.head = None
+    def __init__(self, head=None):
+        self.head = head
 
     def is_empty(self):
+        """
+        Une arbre est vide s'il n'a pas de noeud racine (head).
+
+        Returns:
+            - (bool) : True si arbre vide, False sinon.
+        """
         return self.head == None
     
     def height(self):
+        """
+        Méthode récursive qui retourne la hauteur de l'arbre.
+        La hauteur d'un arbre corresponds à son nombre de "strates".
 
-        node = self.head
-        count = 0
-        
+        Pour un arbre vide, la hauteur vaut 0.
+        Pour un arbre non vide, la hauteur vaut 1 + la hauteur la plus élévée entre son sous-arbre gauche et son sous-arbre droit.
+
+        Returns:
+            - (int) : la hauteur de l'arbre.
+        """
+
+        # Si l'arbre est vide, on retourne 0.
         if self.is_empty():
-            return count
+            return 0
         
-        # Pour l'instant je choisis arbitrairement de prendre le noeud enfant gauche comme noeud suivant mais ce n'est pas rigoureux.
-        # Je ne vois pas comment faire pour à la fois partir sur le sous arbre gauche et le sous arbre droit.
-        # Il faudrait faire l'opération sur 2 objets en même temps, puis sur 4 au suivant, puis sur 8 etc...
-        while not node.is_leaf():
-            count += 1
-            node = node.left
+        # Si l'arbre n'est pas vide, on sait qu'il a alors une hauteur d'au moins 1.
+        # Ensuite, on créer le sous arbre gauche et le sous arbre droit.
+        # Sur chacun de ces sous-arbres, on rappelle la méthode height (qui vas donc récursivement parcourir tous les sous-arbres de l'arbre original jusqu'à arriver aux arbres vide).
+        # On récupère le sous-arbre le plus long.
+        return 1 + max(BinaryTree(head=self.head.left).height(), BinaryTree(head=self.head.right).height())
+
         
-        return count
 
 
 """
