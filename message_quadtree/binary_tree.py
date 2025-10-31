@@ -18,7 +18,7 @@ class Node():
         return self.left == None and self.right == None
 
 class BinaryTree():
-    def __init__(self, head=None):
+    def __init__(self, head: Node =None):
         self.head = head
 
     def is_empty(self):
@@ -52,7 +52,34 @@ class BinaryTree():
         # On récupère le sous-arbre le plus long.
         return 1 + max(BinaryTree(head=self.head.left).height(), BinaryTree(head=self.head.right).height())
 
-        
+    def size(self):
+        """
+        Méthode récursive qui retourne la taille de l'arbre.
+        La taille d'un arbre corresponds à son nombre de noeud total (racine + noeuds internes + feuilles).
+
+        Pour un arbre vide, la taille vaut 0.
+        Pour un arbre non vide, la taille vaut 1 + qqc où qqc est la taille des sous-arbre partant de l'arbre initial.
+
+        Donc, pour un arbre A1, on regarde s'il est vide.
+        Si ce n'est pas le cas, sa taille vaut au moins 1 + qqc.
+        Pour trouver le qqc, on appelle récursivement la méthode size sur les sous arbres A2 et A3 partant de A1.
+        Et ainsi de suite.
+
+        Returns:
+            - (int) : la taille de l'arbre.
+        """
+
+        # Si l'arbre est vide, la taille vaut 0.
+        if self.is_empty():
+            return 0
+
+        # Si le noeud de tête de l'abre est une feuille, alors on compte le noeud (donc +1).
+        if self.head.is_leaf():
+            return 1
+
+        # Si le noeud de tête a des enfants, on compte le noeud de tête (donc +1) et on se sert des enfants pour créer des nouveaux arbres sur lesquels on appelle à nouveau size (récursivement).
+        if self.head.left or self.head.right:
+            return 1 + BinaryTree(head=self.head.left).size() + BinaryTree(head=self.head.right).size()
 
 
 """
@@ -80,3 +107,4 @@ AB = BinaryTree()
 AB.head = N1
 
 print(AB.height())
+print(AB.size())
