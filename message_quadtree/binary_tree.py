@@ -80,6 +80,57 @@ class BinaryTree():
         # Si le noeud de tête a des enfants, on compte le noeud de tête (donc +1) et on se sert des enfants pour créer des nouveaux arbres sur lesquels on appelle à nouveau size (récursivement).
         if self.head.left or self.head.right:
             return 1 + BinaryTree(head=self.head.left).size() + BinaryTree(head=self.head.right).size()
+ 
+    def prefixe(self, lecture_prefixe: list=[]):
+        """
+        Méthode récursive qui retourne la lecture préfixe d'un arbre binaire.
+        La lecture binaire d'un arbre corresponds au trajet parcouru en partant de la racine puis en partant toujours vers la gauche tant que c'est possible,
+        puis sur la droite lorsqu'il n'y a pas le choix et où l'on remonte d'un cran lorsqu'il n'y a ni l'un ni l'autre ou que les enfants du noeud ont déjà été comptabilisés.
+
+        -> A creuser car j'ai du mal à comprendre moi même ce que j'ai fais.
+
+        Args:
+            - lecture_prefixe (list) : la lecture préfixe de l'arbre sous forme de liste, initialement vide, à chaque itération de la méthode,
+            on vient lui ajouter la valeur du noeud racine de l'arbre actuel.
+        
+        Returns:
+            - lecture_prefixe (list) : la lecture préfixe finale de l'abre entier sous forme de liste.
+
+        Example:
+            1
+           / \
+          /   \
+         /     \
+        2       3
+       / \       \
+      /   \       \
+     4     5       6
+            \
+             \
+              7
+
+        --> [1, 2, 4, 5, 7, 3, 6]
+        """
+
+        # On ajoute la valeur du noeud racine actuel à la lecture préfixe.
+        lecture_prefixe.append(self.head.val)
+
+        # L'idée :
+        # Au premier noeud (racine), on regarde si il existe un left et si il existe un right.
+        # On traite le left en premier (! mais attention, on n'oublie pas pour autant qu'il a aussi un right ! Il sera traité rétroactivement en quelque sorte). :
+        # On créer un nouvel arbre binaire avec left comme head (noeud racine).
+        # On rappelle la méthode sur ce nouvelle arbre.
+        # On regarde donc si il a un left et si il a un right.
+        # Si il a un left on le traite en priorité (! mais encore une fois on n'oublie pas pour autant le right !).
+
+        # D'une façon un peu imagée, on peut voir le traitement des left comme une pile de carte dans Magic (les cartes que jouent les joueurs l'un après l'autre sur une pile)
+        # et les right sont traités comme la résolution de la pile, c'est à dire qu'on remontent les cartes dans le sens inverse (de la plus récemment posée à la plus ancienne).
+        if self.head.left:
+            BinaryTree(head=self.head.left).prefixe(lecture_prefixe)
+        if self.head.right:
+            BinaryTree(head=self.head.right).prefixe(lecture_prefixe)
+
+        return lecture_prefixe
 
 
 """
@@ -108,3 +159,4 @@ AB.head = N1
 
 print(AB.height())
 print(AB.size())
+print(AB.prefixe())
