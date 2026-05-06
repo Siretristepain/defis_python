@@ -13,6 +13,10 @@ def unzip(chaine: str):
 
     Returns:
         - (str) : la chaîne décompressée.
+
+    Example:
+        unzip(chaine="+B+BNB2N2+3NBN2B")
+        -> "+B+BNBNN++NNNBNBB"
     """
 
     # result vas stocker les caractères qui vont apparaitre au fur et à mesure du traitement.
